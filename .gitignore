@@ -30,3 +30,31 @@
 *.exe
 *.out
 *.app
+
+# We don't want to upload iPlug Source
+iPlug2/
+
+# These are from the Iplug Template
+*.vs
+*.exe
+*.sdf
+*.opensdf
+*.zip
+*.suo
+*.ncb
+*.vcproj.*
+*.pkg
+*.dmg
+*.depend
+*.layout
+*.mode1v3
+*.db
+*.LSOverride
+*.xcuserdata
+*.xcschememanagement.plist
+build-*
+ipch/*
+gui/*
+
+Icon?
+.DS_Stor*
