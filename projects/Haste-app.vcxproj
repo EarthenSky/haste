@@ -321,8 +321,13 @@
     <ClInclude Include="..\..\..\IPlug\IPlug_include_in_plug_hdr.h" />
     <ClInclude Include="..\..\..\IPlug\IPlug_include_in_plug_src.h" />
     <ClInclude Include="..\Haste.h" />
+    <ClInclude Include="..\HasteController.h" />
     <ClInclude Include="..\Haste_DSP.h" />
+    <ClInclude Include="..\IGrid.h" />
+    <ClInclude Include="..\IWaveBlock.h" />
+    <ClInclude Include="..\IWaveBlockSet.h" />
     <ClInclude Include="..\resources\resource.h" />
+    <ClInclude Include="..\utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Dependencies\IPlug\RTAudio\include\asio.cpp" />
@@ -367,6 +372,7 @@
     <ClCompile Include="..\..\..\IPlug\IPlugProcessor.cpp" />
     <ClCompile Include="..\..\..\IPlug\IPlugTimer.cpp" />
     <ClCompile Include="..\Haste.cpp" />
+    <ClCompile Include="..\HasteController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\resources\main.rc" />

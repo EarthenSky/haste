@@ -83,6 +83,7 @@
     <ClCompile Include="..\..\..\IGraphics\Drawing\IGraphicsSkia.cpp">
       <Filter>IGraphics\Drawing</Filter>
     </ClCompile>
+    <ClCompile Include="..\HasteController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Haste.h" />
@@ -273,10 +274,12 @@
     <ClInclude Include="..\..\..\IPlug\IPlugPluginBase.h">
       <Filter>IPlug</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\IGraphics\ISender.h">
-      <Filter>IGraphics</Filter>
-    </ClInclude>
     <ClInclude Include="..\Haste_DSP.h" />
+    <ClInclude Include="..\IGrid.h" />
+    <ClInclude Include="..\IWaveBlock.h" />
+    <ClInclude Include="..\utility.h" />
+    <ClInclude Include="..\HasteController.h" />
+    <ClInclude Include="..\IWaveBlockSet.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resources">
