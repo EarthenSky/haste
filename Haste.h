@@ -12,6 +12,7 @@
 
 using std::vector;
 using std::unique_ptr;
+using std::unordered_map;
 
 using namespace iplug;
 using namespace igraphics;
@@ -43,8 +44,8 @@ enum EControlTags {
 class Haste final : public Plugin {
 public:
     HasteController controller;
-    vector<std::unique_ptr<IWaveBlock>> waveBlocks;
-    int_pair_to_bool_map blockLocationMap; // TODO: switch to just using the map?
+    //vector<std::unique_ptr<IWaveBlock>> waveBlocks;
+    unordered_map<int_pair, IWaveBlock*, pair_hash> blockLocationMap; // TODO: switch to just using the map?
 
 public:
     Haste(const InstanceInfo& info);

@@ -11,4 +11,4 @@ struct pair_hash {
 };
 
 typedef std::pair<int, int> int_pair;
-typedef std::unordered_map<int_pair, bool, pair_hash> int_pair_to_bool_map;
+//typedef std::unordered_map<int_pair, bool, pair_hash> int_pair_to_bool_map;

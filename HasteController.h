@@ -22,7 +22,7 @@ public:
     HasteController(Haste& haste)
         : haste_(haste) {}
 
-    void AddWaveBlock(unique_ptr<IWaveBlock>&& waveBlock, int_pair targetLoc);
+    void AddWaveBlock(IWaveBlock* waveBlock, int_pair targetLoc);
     void RemoveWaveBlock(int_pair targetLoc);
     bool IsWaveBlockAt(int_pair targetLoc);
     

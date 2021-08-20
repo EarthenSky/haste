@@ -2,16 +2,16 @@
 
 // TODO: the caller of this function should give us a pointer to IWaveBlock, which we will then directly give to the UI, 
 // instead just storing some meta data about how to access that ui & later destroy it.
-void HasteController::AddWaveBlock(unique_ptr<IWaveBlock>&& waveBlock, int_pair targetLoc) {
-    haste_.GetUI()->AttachControl(waveBlock.get());
-        
-    haste_.blockLocationMap[targetLoc] = true;
-    haste_.waveBlocks.push_back(std::move(waveBlock));
+void HasteController::AddWaveBlock(IWaveBlock* waveBlock, int_pair targetLoc) {
+    IControl* control = haste_.GetUI()->AttachControl(waveBlock);
+    haste_.blockLocationMap[targetLoc] = waveBlock; // = control;
+    //haste_.waveBlocks.push_back(std::move(waveBlock));
 }
 
 void HasteController::RemoveWaveBlock(int_pair targetLoc) {
-    haste_.blockLocationMap[targetLoc] = false;
-    // TODO: this needs a proper remove (remove vector first)
+    auto waveBlock = haste_.blockLocationMap[targetLoc];
+    haste_.blockLocationMap[targetLoc] = nullptr; // TODO: how to remove this?
+    haste_.GetUI()->RemoveControl(waveBlock);
 }
 
 bool HasteController::IsWaveBlockAt(int_pair targetLoc) {
