@@ -4,6 +4,8 @@
 #include <vector>
 #include "utility.h"
 
+#include "HasteController.h"
+
 #include "IControl.h"
 #include "IWaveBlock.h"
 
@@ -18,6 +20,8 @@ private:
         Off
     };
 
+    // Todo: Make these constants
+    // 100.0, 37.5, 12.5, 20
     float lineGap_, offsetX_, offsetY_, mainPadding_;
     HasteController& controller_;
 
@@ -37,10 +41,10 @@ public:
             IRECT targetRect (x, y, x + lineGap_, y + lineGap_);
             g.FillRect(COLOR_MID_GRAY, targetRect);
 
-            if (controller_.IsWaveBlockAt(targetLoc)) {
+            if (!controller_.IsWaveBlockAt(targetLoc)) {
                 IRECT waveblockRect(x + 8, y + 8, x + lineGap_ - 8, y + lineGap_ - 8);
                 //std::unique_ptr<IWaveBlock> waveBlock = std::make_unique<IWaveBlock>();
-                controller_.AddWaveBlock(new IWaveBlock(waveblockRect), targetLoc);
+                controller_.AddWaveBlock(new IWaveBlock(controller_, waveblockRect), targetLoc);
             }
         } else if (targetStatus == MouseStatus::Over) {
             float x = targetLoc.first * lineGap_ + offsetX_ + mainPadding_;

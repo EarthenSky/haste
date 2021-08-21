@@ -84,6 +84,7 @@
       <Filter>IGraphics\Drawing</Filter>
     </ClCompile>
     <ClCompile Include="..\HasteController.cpp" />
+    <ClCompile Include="..\IWaveBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Haste.h" />

@@ -24,11 +24,8 @@ public:
 
     void AddWaveBlock(IWaveBlock* waveBlock, int_pair targetLoc);
     void RemoveWaveBlock(int_pair targetLoc);
+    void MoveWaveBlock(int_pair oldLoc, int_pair newLoc);
     bool IsWaveBlockAt(int_pair targetLoc);
-    
-    void MoveWaveBlockTo(int_pair originalLoc, float x, float y) {
-
-    }
 
     void CreateConnection(int_pair start, int_pair end) {
 

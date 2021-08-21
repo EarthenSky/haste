@@ -373,6 +373,7 @@
     <ClCompile Include="..\..\..\IPlug\IPlugTimer.cpp" />
     <ClCompile Include="..\Haste.cpp" />
     <ClCompile Include="..\HasteController.cpp" />
+    <ClCompile Include="..\IWaveBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\resources\main.rc" />
