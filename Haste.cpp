@@ -71,7 +71,7 @@ Haste::Haste(const InstanceInfo& info)
         // ********************************************************* //
         // My stuff:
 
-        pGraphics->AttachControl(new IGrid(controller, mainBounds, 100.0, 37.5, 12.5, 20));
+        pGraphics->AttachControl(new IGrid(controller, mainBounds));
     };
 
 #endif

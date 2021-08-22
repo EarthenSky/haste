@@ -1,21 +1,14 @@
 #pragma once
 
-#include <vector>
-#include "utility.h"
+#include "common.h"
 
-#include "IPlug_include_in_plug_hdr.h"
 #include "IControls.h"
 
-#include "HasteController.h"
 #include "IWaveBlock.h"
 #include "IGrid.h"
+#include "ILine.h"
 
-using std::vector;
-using std::unique_ptr;
-using std::unordered_map;
-
-using namespace iplug;
-using namespace igraphics;
+#include "HasteController.h"
 
 const int kNumPresets = 1;
 
@@ -44,8 +37,9 @@ enum EControlTags {
 class Haste final : public Plugin {
 public:
     HasteController controller;
-    //vector<std::unique_ptr<IWaveBlock>> waveBlocks;
-    unordered_map<int_pair, IWaveBlock*, pair_hash> blockLocationMap; // TODO: switch to just using the map?
+    unordered_map<Point2, IWaveBlock*, point2_hash> blockLocationMap;
+    unordered_map<Vector2, ILine*, vector2_hash> connectionMap;
+    // TODO: make a AST for the synths -> in order to optimize we're pretty much gonna be a compiler.
 
 public:
     Haste(const InstanceInfo& info);

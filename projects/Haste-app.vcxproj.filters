@@ -278,9 +278,10 @@
     <ClInclude Include="..\Haste_DSP.h" />
     <ClInclude Include="..\IGrid.h" />
     <ClInclude Include="..\IWaveBlock.h" />
-    <ClInclude Include="..\utility.h" />
     <ClInclude Include="..\HasteController.h" />
     <ClInclude Include="..\IWaveBlockSet.h" />
+    <ClInclude Include="..\ILine.h" />
+    <ClInclude Include="..\common.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resources">

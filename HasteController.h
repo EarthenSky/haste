@@ -1,16 +1,7 @@
 #pragma once
 
-#include "utility.h"
-
-// TODO: make a common.h
-
+#include "common.h"
 #include "IWaveBlock.h"
-
-using std::vector;
-using std::unique_ptr;
-
-using namespace iplug;
-using namespace igraphics;
 
 class Haste;
 
@@ -19,19 +10,17 @@ private:
     Haste& haste_;
 
 public:
-    HasteController(Haste& haste)
-        : haste_(haste) {}
+    HasteController(Haste& haste) : haste_(haste) {}
 
-    void AddWaveBlock(IWaveBlock* waveBlock, int_pair targetLoc);
-    void RemoveWaveBlock(int_pair targetLoc);
-    void MoveWaveBlock(int_pair oldLoc, int_pair newLoc);
-    bool IsWaveBlockAt(int_pair targetLoc);
+    void AddWaveBlock(IWaveBlock* waveBlock, Point2 targetLoc);
+    void RemoveWaveBlock(Point2 targetLoc);
+    void MoveWaveBlock(Point2 oldLoc, Point2 newLoc);
+    bool IsWaveBlockAt(Point2 targetLoc);
+    IWaveBlock* GetWaveBlock(Point2 targetLoc);
 
-    void CreateConnection(int_pair start, int_pair end) {
+    void AddConnection(ILine* line);
+    void RemoveConnection(Vector2 start);
+    void UpdateConnection(Vector2 start, Vector2 end);
+    bool IsConnectionAt(Vector2 start);
 
-    }
-
-    void DestroyConnection(int_pair start, int_pair end) {
-
-    }
 };
