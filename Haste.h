@@ -38,7 +38,7 @@ class Haste final : public Plugin {
 public:
     HasteController controller;
     unordered_map<Point2, IWaveBlock*, point2_hash> blockLocationMap;
-    unordered_map<Vector2, ILine*, vector2_hash> connectionMap;
+    unordered_map<int, ILine*> connectionMap; // TODO: define lines by classes.
     // TODO: make a AST for the synths -> in order to optimize we're pretty much gonna be a compiler.
 
 public:

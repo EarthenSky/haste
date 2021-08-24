@@ -17,12 +17,13 @@ void IWaveBlock::Draw(IGraphics& g) {
 
     g.FillRect(COLOR_GRAY, mRECT);
 
-    transformedX = 0.0; 
+    transformedX = 0.0;
     transformedY = 0.0;
 }
-
+ 
 void IWaveBlock::OnMouseDown(float x, float y, const IMouseMod& mod) {
     if (mod.S && mod.R) {
+        DestroyAllConnections();
         controller_.RemoveWaveBlock(myLocation);
     } else if (mod.L) {
         // TODO: something here?
@@ -31,10 +32,7 @@ void IWaveBlock::OnMouseDown(float x, float y, const IMouseMod& mod) {
 
 void IWaveBlock::OnMouseDrag(float x, float y, float dX, float dY, const IMouseMod& mod) {
     if (mod.L) {
-        // TODO: change these two into a function so it's cleaner.
-        transformedX += dX;
-        transformedY += dY;
-        SetDirty(false);
+        Move(dX, dY);
     } else if (mod.R) {
         // Pull a connection.
         LineTo(x + dX, y + dY);
@@ -51,57 +49,63 @@ void IWaveBlock::OnMouseUp(float x, float y, const IMouseMod& mod) {
         }
 
         IRECT newRect = GetRECTAt(myLocation);
-        transformedX = newRect.L - GetRECT().L;
-        transformedY = newRect.T - GetRECT().T;
-        SetDirty(false);
+        Move(newRect.L - GetRECT().L, newRect.T - GetRECT().T);
     } else if (mod.RUp && dragging) {
         auto targetLocation = Vector2(x, y);
         auto targetIndex = LocationToIndex(targetLocation);
         if (controller_.IsWaveBlockAt(targetIndex) && targetIndex != myLocation) {
-            // Success, we found a block to attach to!
-            Vector2 startLoc = IndexToLocation(myLocation, GetRECT().W(), GetRECT().H());
+            // Success, we found a block to attach to! (We can't attach to ourselves)
             Vector2 endLoc = IndexToLocation(targetIndex, GetRECT().W(), GetRECT().H());
             auto waveBlock = controller_.GetWaveBlock(targetIndex);
-            CreateConnection(waveBlock, startLoc, endLoc);
-            AddIngoingConnection(waveBlock);
+
+            if (outgoingConnection.has_value()) {
+                outgoingConnection.value()->RemoveIngoingConnection(this->uid);
+            }
+
+            // create connection
+            outgoingConnection = std::optional<IWaveBlock*>{ waveBlock };
+            waveBlock->AddIngoingConnection(this);
+            LineTo(endLoc);
         } else {
-            EndLine();
+            EndOutgoingConnection();
         }
     }    
     dragging = false;
 }
 
+void IWaveBlock::EndOutgoingConnection() {
+    if(controller_.IsConnectionFrom(this->uid)) 
+        controller_.RemoveConnection(this->uid);
+    outgoingLine = std::nullopt;
+    outgoingConnection = std::nullopt;
+}
+
 // -----------------------------
 // Private
 
+void IWaveBlock::LineTo(Vector2 target) {
+    LineTo(target.x, target.y);
+}
+
 void IWaveBlock::LineTo(float targetX, float targetY) {
     // convert from index coordinates to world coordinates
-    auto blockMiddle = IndexToLocation(myLocation, GetRECT().W(), GetRECT().H());
-    auto start = blockMiddle;
+    auto start = IndexToLocation(myLocation, GetRECT().W(), GetRECT().H()); // block middle
     auto end = Vector2(targetX, targetY);
-    if (controller_.IsConnectionAt(start)) {
-        controller_.UpdateConnection(start, end);
+    if (controller_.IsConnectionFrom(this->uid)) {
+        controller_.UpdateConnection(this->uid, start, end);
     } else {
         outgoingLine = std::optional<ILine*>{ new ILine(start, end) };
-        controller_.AddConnection(outgoingLine.value());
+        controller_.AddConnection(this->uid, outgoingLine.value());
     }
 }
 
-void IWaveBlock::EndLine() {
-    controller_.RemoveConnection(outgoingLine.value()->GetStart());
-    outgoingLine = std::nullopt;
-}
+// TODO: is this function needed?
+void IWaveBlock::DestroyAllConnections() {
+    // destroy outgoing connection
+    EndOutgoingConnection();
 
-void IWaveBlock::CreateConnection(IWaveBlock* target, Vector2 start, Vector2 end) {
-    outgoingConnection = std::optional<IWaveBlock*>{ target };
-    outgoingLine = std::optional<ILine*>{ new ILine(start, end) };
-    controller_.AddConnection(outgoingLine.value());
-}
-
-void IWaveBlock::DestroyConnection() {
-    if (outgoingLine.has_value()) {
-        controller_.RemoveConnection(outgoingLine.value()->GetStart());
-        outgoingConnection = std::nullopt;
-        outgoingLine = std::nullopt;
+    // ask all incoming connections to end their outgoing lines
+    for (auto ingoingConnection : ingoingConnections) {
+        ingoingConnection->EndOutgoingConnection();
     }
 }

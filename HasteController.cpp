@@ -34,22 +34,21 @@ IWaveBlock* HasteController::GetWaveBlock(Point2 targetLoc) {
 // -----------------------------------
 // Connections
 
-void HasteController::AddConnection(ILine* line) {
+void HasteController::AddConnection(int parentUid, ILine* line) {
     IControl* control = haste_.GetUI()->AttachControl(line);
-    haste_.connectionMap[line->GetStart()] = line; // TODO: change to Point2D?
+    haste_.connectionMap[parentUid] = line;
 }
 
-void HasteController::RemoveConnection(Vector2 start) {
-    auto line = haste_.connectionMap[start];
-    haste_.connectionMap.erase(start);
+void HasteController::RemoveConnection(int parentUid) {
+    auto line = haste_.connectionMap[parentUid];
+    haste_.connectionMap.erase(parentUid);
     haste_.GetUI()->RemoveControl(line);
 }
 
-void HasteController::UpdateConnection(Vector2 start, Vector2 end) {
-    haste_.connectionMap[start]->SetEnd(end);
-    haste_.connectionMap[start]->SetDirty(false);
+void HasteController::UpdateConnection(int parentUid, Vector2 start, Vector2 end) {
+    haste_.connectionMap[parentUid]->SetEnd(end);
 }
 
-bool HasteController::IsConnectionAt(Vector2 start) {
-    return haste_.connectionMap.find(start) != haste_.connectionMap.end();
+bool HasteController::IsConnectionFrom(int parentUid) {
+    return haste_.connectionMap.find(parentUid) != haste_.connectionMap.end();
 }

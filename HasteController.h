@@ -18,9 +18,9 @@ public:
     bool IsWaveBlockAt(Point2 targetLoc);
     IWaveBlock* GetWaveBlock(Point2 targetLoc);
 
-    void AddConnection(ILine* line);
-    void RemoveConnection(Vector2 start);
-    void UpdateConnection(Vector2 start, Vector2 end);
-    bool IsConnectionAt(Vector2 start);
+    void AddConnection(int parentUid, ILine* line);
+    void RemoveConnection(int parentUid);
+    void UpdateConnection(int parentUid, Vector2 start, Vector2 end);
+    bool IsConnectionFrom(int parentUid);
 
 };
