@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include "IWaveBlock.h"
+#include "IOutputBlock.h"
 
 class Haste;
 
@@ -12,7 +13,9 @@ private:
 public:
     HasteController(Haste& haste) : haste_(haste) {}
 
-    void AddWaveBlock(IWaveBlock* waveBlock, Point2 targetLoc);
+    void CreateOutputBlock(); // TODO: should this even be here?
+
+    void AddWaveBlock(IRECT waveBlockRect, Point2 targetLoc);
     void RemoveWaveBlock(Point2 targetLoc);
     void MoveWaveBlock(Point2 oldLoc, Point2 newLoc);
     bool IsWaveBlockAt(Point2 targetLoc);

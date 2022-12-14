@@ -326,6 +326,7 @@
     <ClInclude Include="..\Haste_DSP.h" />
     <ClInclude Include="..\IGrid.h" />
     <ClInclude Include="..\ILine.h" />
+    <ClInclude Include="..\IOutputBlock.h" />
     <ClInclude Include="..\IWaveBlock.h" />
     <ClInclude Include="..\IWaveBlockSet.h" />
     <ClInclude Include="..\resources\resource.h" />
@@ -374,6 +375,7 @@
     <ClCompile Include="..\..\..\IPlug\IPlugTimer.cpp" />
     <ClCompile Include="..\Haste.cpp" />
     <ClCompile Include="..\HasteController.cpp" />
+    <ClCompile Include="..\IOutputBlock.cpp" />
     <ClCompile Include="..\IWaveBlock.cpp" />
   </ItemGroup>
   <ItemGroup>

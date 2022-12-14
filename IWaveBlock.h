@@ -10,7 +10,7 @@ using namespace igraphics;
 
 class HasteController;
 
-// TODO: set grid as a "peer"
+// TODO: rewrite all the graphics stuff using nanovg without any of this control stuff.
 class IWaveBlock : public IControl {
 public:
     const int uid;
@@ -26,13 +26,19 @@ private:
     vector<IWaveBlock*> ingoingConnections;
     std::optional<IWaveBlock*> outgoingConnection;
     std::optional<ILine*> outgoingLine;
+
+    IControl* volume;
+    IControl* pitch;
     
 public:
-    IWaveBlock(HasteController& controller, const IRECT& bounds)
+    IWaveBlock(HasteController& controller, const IRECT& bounds, IControl* volume, IControl* pitch)
     : controller_(controller), IControl(bounds), uid(GetUid())
     {
         myLocation = CurrentLocation();
         outgoingLine = std::nullopt;
+
+        this->volume = volume;
+        this->pitch = pitch;
     }
 
     Point2 CurrentLocation() {
@@ -45,6 +51,9 @@ public:
         transformedX += dX;
         transformedY += dY;
         SetDirty(false);
+
+        volume->SetRECT(volume->GetRECT().GetTranslated(dX, dY));
+        pitch->SetRECT(pitch->GetRECT().GetTranslated(dX, dY));
 
         // Move outgoing connections
         if (outgoingLine.has_value())
@@ -77,6 +86,13 @@ public:
 
     const std::optional<ILine*> GetLine() {
         return outgoingLine;
+    }
+
+    vector<IControl*> GetChildControls() {
+        vector<IControl*> myControls;
+        myControls.push_back(this->volume);
+        myControls.push_back(this->pitch);
+        return myControls;
     }
 
 private: 

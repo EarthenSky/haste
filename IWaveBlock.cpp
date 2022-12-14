@@ -1,4 +1,4 @@
-#pragma once
+//#pragma once
 
 #include "HasteController.h"
 #include "nanovg.h"
@@ -16,6 +16,12 @@ void IWaveBlock::Draw(IGraphics& g) {
     nvgScissor(mVG, mRECT.L, mRECT.T, mRECT.W(), mRECT.H());
 
     g.FillRect(COLOR_GRAY, mRECT);
+
+    volume->SetDirty(false);
+    pitch->SetDirty(false);
+
+    volume->Draw(g);
+    pitch->Draw(g);
 
     transformedX = 0.0;
     transformedY = 0.0;

@@ -36,7 +36,7 @@ public:
 
             if (!controller_.IsWaveBlockAt(targetLoc)) {
                 IRECT waveblockRect(x + 8, y + 8, x + lineGap_ - 8, y + lineGap_ - 8);
-                controller_.AddWaveBlock(new IWaveBlock(controller_, waveblockRect), targetLoc);
+                controller_.AddWaveBlock(waveblockRect, targetLoc);
             }
         } else if (targetStatus == MouseStatus::Over) {
             float x = targetLoc.x * lineGap_ + offsetX_ + mainPadding_;

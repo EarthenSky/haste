@@ -85,6 +85,7 @@
     </ClCompile>
     <ClCompile Include="..\HasteController.cpp" />
     <ClCompile Include="..\IWaveBlock.cpp" />
+    <ClCompile Include="..\IOutputBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Haste.h" />
@@ -282,6 +283,7 @@
     <ClInclude Include="..\IWaveBlockSet.h" />
     <ClInclude Include="..\ILine.h" />
     <ClInclude Include="..\common.h" />
+    <ClInclude Include="..\IOutputBlock.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resources">
